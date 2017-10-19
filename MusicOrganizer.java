@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A class to hold details of audio tracks.
@@ -61,6 +62,31 @@ public class MusicOrganizer
     }
     
     /**
+     * Play the first track in the collection, if there is one.
+     */
+    public void playFirst()
+    {
+        if(tracks.size() > 0) {
+            player.startPlaying(tracks.get(0).getFilename());
+        }
+    }
+    
+    /**
+     * Play a Random Track
+     * randomize is limited to 4 random numbers (0-3)
+     */
+    public void playRandom()
+    {
+        Random randomize = new Random ();
+        
+        int test = randomize.nextInt(4);
+        Track track = tracks.get(test);
+        player.startPlaying(tracks.get(test).getFilename());
+        System.out.println("Now Playing: " + track.getArtist() + " - " + track.getTitle());  
+    
+    }
+    
+    /**
      * Return the number of tracks in the collection.
      * @return The number of tracks in the collection.
      */
@@ -116,16 +142,7 @@ public class MusicOrganizer
             tracks.remove(index);
         }
     }
-    
-    /**
-     * Play the first track in the collection, if there is one.
-     */
-    public void playFirst()
-    {
-        if(tracks.size() > 0) {
-            player.startPlaying(tracks.get(0).getFilename());
-        }
-    }
+   
     
     /**
      * Stop the player.
@@ -148,7 +165,7 @@ public class MusicOrganizer
         boolean valid;
         
         if(index < 0) {
-            System.out.println("Index test cannot be negative: " + index);
+            System.out.println("Index cannot be negative: " + index);
             valid = false;
         }
         else if(index >= tracks.size()) {
