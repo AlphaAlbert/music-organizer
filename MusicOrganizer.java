@@ -148,7 +148,7 @@ public class MusicOrganizer
         boolean valid;
         
         if(index < 0) {
-            System.out.println("Index cannot be negative: " + index);
+            System.out.println("Index test cannot be negative: " + index);
             valid = false;
         }
         else if(index >= tracks.size()) {
