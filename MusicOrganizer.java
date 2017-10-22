@@ -90,10 +90,8 @@ public class MusicOrganizer
     
     public void RandomPlaylist()
     {
-        Iterator<Track> playlist = tracks.iterator();//creates an Iterator called Playlist
-        for(int j = 0; j < tracks.size(); j++)
-        {
-            ArrayList<Integer> uniqueNumberList = new ArrayList<Integer>();
+        
+                ArrayList<Integer> uniqueNumberList = new ArrayList<Integer>();
                 /**
                  * Note: for loop is 4 times as large as size of track to ensure
                  * that the unique number list gets populated by the number of 
@@ -111,14 +109,15 @@ public class MusicOrganizer
                     {
                         randNum = randomize.nextInt(tracks.size()); 
                     }
+                    
+        
                 }
                 
-            Track track = tracks.get(uniqueNumberList.get(j));
-            player.startPlaying(tracks.get(uniqueNumberList.get(j)).getFilename());
-            System.out.println("Now Playing: " + track.getArtist() + " - " + track.getTitle());
-            
-        }
-    
+                for(int j = 0; j <tracks.size(); j++){
+                Track track = tracks.get(uniqueNumberList.get(j));
+                player.startPlaying(tracks.get(uniqueNumberList.get(j)).getFilename());
+                System.out.println("Now Playing: " + track.getArtist() + " - " + track.getTitle());
+            }
     
     }
     
