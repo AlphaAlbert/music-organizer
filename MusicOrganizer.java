@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.*;         // Used to import iterator
 
 /**
  * A class to hold details of audio tracks.
@@ -15,6 +17,8 @@ public class MusicOrganizer
     private MusicPlayer player;
     // A reader that can read music files and load them as tracks.
     private TrackReader reader;
+    // Randomize instantiate
+    Random randomize = new Random ();
 
     /**
      * Create a MusicOrganizer
@@ -59,6 +63,67 @@ public class MusicOrganizer
             System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
         }
     }
+    
+    /**
+     * Play the first track in the collection, if there is one.
+     */
+    public void playFirst()
+    {
+        if(tracks.size() > 0) {
+            player.startPlaying(tracks.get(0).getFilename());
+        }
+    }
+    
+    /**
+     * Play a Random Track
+     * randomize is limited to 4 random numbers (0-3)
+     */
+    public void playRandom()
+    {
+        
+        int test = randomize.nextInt(tracks.size());
+        Track track = tracks.get(test);
+        player.startPlaying(tracks.get(test).getFilename());
+        System.out.println("Now Playing: " + track.getArtist() + " - " + track.getTitle());  
+    
+    }
+    
+    public void RandomPlaylist()
+    {
+        Iterator<Track> playlist = tracks.iterator();//creates an Iterator called Playlist
+        for(int j = 0; j < tracks.size(); j++)
+        {
+            ArrayList<Integer> uniqueNumberList = new ArrayList<Integer>();
+                /**
+                 * Note: for loop is 4 times as large as size of track to ensure
+                 * that the unique number list gets populated by the number of 
+                 * tracks in the music player. in this case 4. 
+                 */
+                for(int i = 0; i < tracks.size() * 4; i++)   
+                {
+                    int randNum = randomize.nextInt(tracks.size());
+                    boolean checkVal = uniqueNumberList.contains(randNum);
+                    if (checkVal == false) 
+                    {
+                        uniqueNumberList.add(randNum);
+                    }
+                    else 
+                    {
+                        randNum = randomize.nextInt(tracks.size()); 
+                    }
+                }
+                
+            Track track = tracks.get(uniqueNumberList.get(j));
+            player.startPlaying(tracks.get(uniqueNumberList.get(j)).getFilename());
+            System.out.println("Now Playing: " + track.getArtist() + " - " + track.getTitle());
+            
+        }
+    
+    
+    }
+    
+    
+    
     
     /**
      * Return the number of tracks in the collection.
@@ -116,16 +181,7 @@ public class MusicOrganizer
             tracks.remove(index);
         }
     }
-    
-    /**
-     * Play the first track in the collection, if there is one.
-     */
-    public void playFirst()
-    {
-        if(tracks.size() > 0) {
-            player.startPlaying(tracks.get(0).getFilename());
-        }
-    }
+   
     
     /**
      * Stop the player.
